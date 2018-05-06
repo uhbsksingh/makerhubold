@@ -1,0 +1,8 @@
+{
+  "name": "com.absk.makerHub",
+  "app_id": "cfd9def9",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
