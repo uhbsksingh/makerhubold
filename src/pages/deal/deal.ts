@@ -3,10 +3,10 @@ import { NavController, IonicPage } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-transfer',
-  templateUrl: 'transfer.html'
+  selector: 'page-deal',
+  templateUrl: 'deal.html'
 })
-export class TransferPage {
+export class DealPage {
 
   constructor(public navCtrl: NavController) {
 

@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
-import { TransferPage } from './transfer';
+import { SearchPage } from './search';
 
 @NgModule({
     declarations: [
-        TransferPage
+        SearchPage
     ],
     imports: [
-        IonicPageModule.forChild(TransferPage)
+        IonicPageModule.forChild(SearchPage)
     ],
     exports: [
-        TransferPage
+        SearchPage
     ]
 })
-export class ProfilePageModule { }
+export class SearchPageModule { }
