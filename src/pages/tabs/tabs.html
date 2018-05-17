@@ -1,22 +1,6 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      MakerHub
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openSearchPage()">
-        <ion-icon name="search"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="openAddMenu()">
-        <ion-icon name="add" style="zoom:1.5;"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
-
 <ion-tabs>
   <ion-tab [root]="tabDeals" tabTitle="Deals" tabIcon="chatbubbles"></ion-tab>
   <ion-tab [root]="tabContacts" tabTitle="Contacts" tabIcon="contacts"></ion-tab>
-  <ion-tab [root]="tabHub" tabTitle="Hub" tabIcon="cube"></ion-tab>
+  <ion-tab [root]="tabInventory" tabTitle="Inventory" tabIcon="apps"></ion-tab>
   <ion-tab [root]="tabProfile" tabTitle="Profile" tabIcon="person"></ion-tab>
 </ion-tabs>

@@ -1,20 +1,13 @@
 import { Component } from '@angular/core';
 
-import { App, NavController, ModalController, ViewController } from 'ionic-angular';
+import { App, NavController, ModalController, ViewController, IonicPage } from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
-  template: `
-    <ion-list>
-      <button ion-item (click)="close('http://ionicframework.com/docs/v2/getting-started')">Learn Ionic</button>
-      <button ion-item (click)="close('http://ionicframework.com/docs/v2')">Documentation</button>
-      <button ion-item (click)="close('http://showcase.ionicframework.com')">Showcase</button>
-      <button ion-item (click)="close('https://github.com/ionic-team/ionic')">GitHub Repo</button>
-      <button ion-item (click)="support()">Support</button>
-    </ion-list>
-  `
+  selector: 'page-add-menu-popover',
+  templateUrl: 'add-menu-popover.html'
 })
-export class PopoverPage {
+export class AddMenuPopoverPage {
 
   constructor(
     public viewCtrl: ViewController,
@@ -23,13 +16,15 @@ export class PopoverPage {
     public modalCtrl: ModalController
   ) { }
 
-  support() {
-    this.app.getRootNav().push('SupportPage');
-    this.viewCtrl.dismiss();
+  openAddDealPage() {
+    this.navCtrl.push("AddDealPage");
   }
 
-  close(url: string) {
-    window.open(url, '_blank');
-    this.viewCtrl.dismiss();
+  openAddContactPage() {
+    this.navCtrl.push("AddContactPage");
+  }
+
+  openAddInventoryPage() {
+    this.navCtrl.push("AddInventoryPage");
   }
 }

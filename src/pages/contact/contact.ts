@@ -12,4 +12,8 @@ export class ContactPage {
 
   }
 
+  openAddContactPage() {
+    this.navCtrl.push("AddContactPage");
+  }
+
 }
