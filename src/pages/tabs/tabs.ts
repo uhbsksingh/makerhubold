@@ -8,7 +8,7 @@ import { IonicPage, ActionSheetController, ModalController, Platform } from 'ion
 })
 export class TabsPage {
 
-  tabTransfers = "TransferPage";
+  tabDeals = "DealPage";
   tabContacts = "ContactPage";
   tabHub = "HubPage";
   tabProfile = "ProfilePage";
@@ -21,12 +21,12 @@ export class TabsPage {
 
   }
 
-  private openSearchPage() {
+  public openSearchPage() {
     let modal = this.modalCtrl.create('SearchPage');
     modal.present();
   }
 
-  private openAddMenu() {
+  public openAddMenu() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Add',
       cssClass: 'action-sheets-basic-page',

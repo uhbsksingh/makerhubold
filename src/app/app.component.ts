@@ -3,6 +3,9 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// Import Auth0Cordova
+import Auth0Cordova from '@auth0/cordova';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,5 +19,10 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    // Add this function
+    (<any>window).handleOpenURL = (url) => {
+      Auth0Cordova.onRedirectUri(url);
+    };
   }
 }
