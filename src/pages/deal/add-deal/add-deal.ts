@@ -54,9 +54,11 @@ export class AddDealPage {
     newDeal.ReferencedCollectionDetailId = contact.referenceCollectionDetailId;
     newDeal.AliasName = contact.referenceCollectionDetailName;
 
-    var posted = this.dealService.add(newDeal);
-
-    console.log("posted", posted);
+    this.dealService.add(newDeal).subscribe(
+      result => {
+        console.log("subscribeResult", result);
+      }
+    );
 
     this.navCtrl.pop();
   }
