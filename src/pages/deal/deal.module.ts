@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { DealPage } from './deal';
-import { DealService } from '../../providers/deal-service/deal-service';
+import { DealService } from '../../providers/deal-service/deal.service';
 
 @NgModule({
     declarations: [

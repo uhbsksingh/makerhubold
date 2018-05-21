@@ -4,6 +4,7 @@ import { BaseModel } from "../base.model";
 export class Deal extends BaseModel {
     AliasName: string;
     CreatedByCollectionDetailId: string;
+    ReferencedCollectionDetailId: string;
     Tags: string;
     CreatedDateTime: DateTime;
     UpdatedDateTime: DateTime;

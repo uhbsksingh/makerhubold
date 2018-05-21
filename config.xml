@@ -89,4 +89,5 @@
         <variable name="ANDROID_HOST" value="absk.auth0.com" />
         <variable name="ANDROID_PATHPREFIX" value="/cordova/com.absk.makerhub/callback" />
     </plugin>
+    <engine name="android" spec="~7.0.0" />
 </widget>
