@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class BaseService<T extends BaseModel> {
 
-    url: string = "http://192.168.0.103:7968/api";
+    url: string = "http://192.168.0.112:7968/api";
     httpOptions = {
         headers: new HttpHeaders({
             "Content-Type": "application/json"
@@ -20,20 +20,10 @@ export class BaseService<T extends BaseModel> {
     }
 
     public add(data: T): Observable<T> {
-
-        console.log("postUrl", [
-            this.url,
-            this.baseEndpoints
-        ].join("/"));
-
-        console.log("postData", data);
-
-        console.log("headers", this.httpOptions.headers.has("Content-Type"));
-
         return this.httpClient
             .post<T>([
                 this.url,
-                this.baseEndpoints
+                this.baseEndpoints.join("/")
             ].join("/"), data, this.httpOptions);
     }
 
@@ -41,7 +31,7 @@ export class BaseService<T extends BaseModel> {
         return this.httpClient
             .put<T>([
                 this.url,
-                this.baseEndpoints
+                this.baseEndpoints.join("/")
             ].join("/"), data, this.httpOptions);
     }
 
@@ -49,7 +39,7 @@ export class BaseService<T extends BaseModel> {
         return this.httpClient
             .get<T>([
                 this.url,
-                this.baseEndpoints,
+                this.baseEndpoints.join("/"),
                 id
             ].join("/"));
     }
@@ -58,7 +48,7 @@ export class BaseService<T extends BaseModel> {
         return this.httpClient
             .delete<T>([
                 this.url,
-                this.baseEndpoints
+                this.baseEndpoints.join("/")
             ].join("/"));
     }
 
@@ -66,7 +56,7 @@ export class BaseService<T extends BaseModel> {
         return this.httpClient
             .get<T[]>([
                 this.url,
-                this.baseEndpoints
+                this.baseEndpoints.join("/")
             ].join("/"));
     }
 }

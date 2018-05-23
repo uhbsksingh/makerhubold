@@ -1,0 +1,17 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DealService {
+
+    constructor(
+        httpClient: HttpClient,
+    ) {
+
+    }
+
+    public uploadImage() {
+
+    }
+
+}

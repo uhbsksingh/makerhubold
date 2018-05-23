@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, PopoverController } from 'ionic-angular';
-import { Deal } from '../../providers/deal-service/deal.model';
-import { DealService } from '../../providers/deal-service/deal.service';
+import { IonicPage, PopoverController, NavController } from 'ionic-angular';
+import { Deal } from '../../providers/deal/deal.model';
+import { DealService } from '../../providers/deal/deal.service';
+import { EmitterService } from '../../core/emitter.service';
+import { Collection } from '../../providers/collection/collection.model';
 
 @IonicPage()
 @Component({
@@ -14,20 +16,40 @@ export class DealPage {
   error: Error[];
 
   constructor(
+    public navCtrl: NavController,
+
     private dealService: DealService,
     private popOverCtrl: PopoverController
   ) {
     this.loadDeals();
+
+    EmitterService
+      .get("DEAL_ADD")
+      .subscribe(
+        (deals: Deal[]) => {
+          this.loadDeals(); 
+        });
   }
 
   loadDeals() {
     this.dealService.getAll().subscribe(
       result => {
+        console.log("result", result);
         this.deals = result
       },
       err => {
         this.error = err;
       });
+  }
+
+  openDealDetailPage(deal: Deal) {
+
+    var referencedCollectionDetail: Collection = new Collection();
+    referencedCollectionDetail.collectionDetailId = deal.referencedCollectionDetailId;
+    referencedCollectionDetail.collectionDetailName = deal.aliasName;
+
+    console.log("referencedCollectionDetail", referencedCollectionDetail);
+    this.navCtrl.push("DealDetailPage", referencedCollectionDetail);
   }
 
   public presentPopover(ev) {
@@ -38,13 +60,5 @@ export class DealPage {
       ev: ev
     });
   }
-
-  //Lifecycle hooks
-
-  // ngOnChanges(changes: any) {
-  //   // Listen to the 'list'emitted event so as populate the model
-  //   // with the event payload
-  //   EmitterService.get(this.listId).subscribe((comments: Comment[]) => { this.loadComments() });
-  // }
 
 }

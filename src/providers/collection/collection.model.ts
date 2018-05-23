@@ -1,4 +1,3 @@
-import { DateTime } from "ionic-angular";
 import { BaseModel } from "../base.model";
 
 export class Collection extends BaseModel {

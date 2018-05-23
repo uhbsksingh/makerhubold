@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService } from '../../../providers/contact/contact.service';
 import { Contact } from '../../../providers/contact/contact.model';
-import { DealService } from '../../../providers/deal-service/deal.service';
-import { Deal } from '../../../providers/deal-service/deal.model';
+import { DealService } from '../../../providers/deal/deal.service';
+import { Deal } from '../../../providers/deal/deal.model';
+import { EmitterService } from '../../../core/emitter.service';
 
 @IonicPage()
 @Component({
@@ -50,15 +51,18 @@ export class AddDealPage {
   addDeal(contact: Contact) {
 
     var newDeal = new Deal();
-    newDeal.CreatedByCollectionDetailId = contact.collectionDetailId;
-    newDeal.ReferencedCollectionDetailId = contact.referenceCollectionDetailId;
-    newDeal.AliasName = contact.referenceCollectionDetailName;
+    newDeal.createdByCollectionDetailId = contact.collectionDetailId;
+    newDeal.referencedCollectionDetailId = contact.referenceCollectionDetailId;
+    newDeal.aliasName = contact.referenceCollectionDetailName;
 
     this.dealService.add(newDeal).subscribe(
       result => {
-        console.log("subscribeResult", result);
-      }
-    );
+        EmitterService.get("DEAL_ADD").emit(newDeal);
+      },
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
 
     this.navCtrl.pop();
   }

@@ -1,4 +1,3 @@
-import { DateTime } from "ionic-angular";
 import { BaseModel } from "../base.model";
 
 export class Contact extends BaseModel {
