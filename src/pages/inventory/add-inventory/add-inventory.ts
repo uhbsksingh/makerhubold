@@ -13,6 +13,10 @@ import { Camera } from '@ionic-native/camera';
 import { Transfer, TransferObject, FileUploadOptions } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Item, ImageDetail } from '../../../providers/item/item.model';
+import { ItemService } from '../../../providers/item/item.service';
+import { EmitterService } from '../../../core/emitter.service';
 
 declare var cordova: any;
 
@@ -26,6 +30,10 @@ export class AddInventoryPage {
   lastImage: string = null;
   loading: Loading;
 
+  itemForm: FormGroup;
+
+  imageDetailId: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -37,8 +45,46 @@ export class AddInventoryPage {
     private camera: Camera,
     private transfer: Transfer,
     private file: File,
-    private filePath: FilePath
+    private filePath: FilePath,
+
+    private formBuilder: FormBuilder,
+    private itemService: ItemService
   ) {
+
+    this.itemForm = this.formBuilder.group({
+      itemName: ["", Validators.required],
+      height: [],
+      weight: [],
+      itemQuantity: ["", Validators.required],
+      tags: []
+    });
+  }
+
+  public addItem() {
+    var newItem: Item = this.itemForm.value;
+    newItem.itemImages = new Array<ImageDetail>();
+
+    var itemImage: ImageDetail = new ImageDetail();
+
+    console.log("this.imageDetailId", this.imageDetailId);
+    console.log("parseInt(this.imageDetailId)", parseInt(this.imageDetailId));
+
+    itemImage.imageId = parseInt(this.imageDetailId);
+    itemImage.caption = newItem.itemName;
+
+    newItem.itemImages.push(itemImage);
+
+    console.log("newItem", newItem);
+
+    this.itemService.add(newItem).subscribe(
+      result => {
+        EmitterService.get("ITEM_ADD").emit(newItem);
+        this.navCtrl.pop();
+      },
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
 
   }
 
@@ -157,7 +203,10 @@ export class AddInventoryPage {
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
       console.log("data", data);
-      this.loading.dismissAll()
+      console.log("data", data.response);
+      this.imageDetailId = data.response;
+      console.log("data this.imageDetailId", this.imageDetailId);
+      this.loading.dismissAll();
       this.presentToast('Image succesfully uploaded.');
     }, err => {
       console.log("err", err);

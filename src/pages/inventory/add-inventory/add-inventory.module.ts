@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AddInventoryPage } from './add-inventory';
+import { InventoryPageModule } from '../inventory.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { AddInventoryPage } from './add-inventory';
   ],
   imports: [
     IonicPageModule.forChild(AddInventoryPage),
-  ],
+    InventoryPageModule
+  ]
 })
-export class AddInventoryPageModule {}
+export class AddInventoryPageModule { }

@@ -10,47 +10,37 @@
 <ion-content padding>
   <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
   <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+
+  <ion-buttons>
+    <button ion-button icon-left (click)="presentActionSheet()">
+      <ion-icon name="camera"></ion-icon>Select Image
+    </button>
+    <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+      <ion-icon name="cloud-upload"></ion-icon>Upload
+    </button>
+  </ion-buttons>
+
+  <form [formGroup]="itemForm" (ngSubmit)="addItem()">
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="itemName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Height</ion-label>
+      <ion-input type="text" formControlName="height"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Weight</ion-label>
+      <ion-input type="text" formControlName="weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantity</ion-label>
+      <ion-input type="number" formControlName="itemQuantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tags</ion-label>
+      <ion-input type="text" formControlName="tags"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!itemForm.valid">Submit</button>
+  </form>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-buttons>
-      <button ion-button icon-left (click)="presentActionSheet()">
-        <ion-icon name="camera"></ion-icon>Select Image
-      </button>
-      <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-        <ion-icon name="cloud-upload"></ion-icon>Upload
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
-
-<!-- <ion-content padding> -->
-
-<!-- <form (ngSubmit)="addInventory()" #regForm="ngForm">
-    <ion-list>
-      <ion-item>
-        <ion-label fixed>Avatar</ion-label>
-        <ion-avatar item-end>
-          <img src="" (click)="getImage()">
-        </ion-avatar>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="regData.email" name="email" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="regData.password" name="password" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Full Name</ion-label>
-        <ion-input type="text" [(ngModel)]="regData.fullname" name="fullname" required></ion-input>
-      </ion-item>
-    </ion-list>
-    <div padding>
-      <button ion-button full [disabled]="regForm.invalid">Register</button>
-    </div>
-  </form> -->
-
-<!-- </ion-content> -->

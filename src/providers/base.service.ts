@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class BaseService<T extends BaseModel> {
 
-    url: string = "http://192.168.0.112:7968/api";
+    url: string = "http://192.168.0.112:5879/api";
     httpOptions = {
         headers: new HttpHeaders({
             "Content-Type": "application/json"

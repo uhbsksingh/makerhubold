@@ -12,7 +12,7 @@ export class ItemService extends BaseService<Item> {
   constructor(
     httpClient: HttpClient,
   ) {
-    super(httpClient, ["Deal", "Item"]);
+    super(httpClient, ["Item"]);
   }
 
 }

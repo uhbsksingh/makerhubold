@@ -6,5 +6,13 @@ export class Item extends BaseModel {
     height: string;
     weight: string;
     itemQuantity: number;
-    tags: string
+    tags: string;
+    itemImages: ImageDetail[];
+}
+
+export class ImageDetail {
+    imageId: number;
+    imageUrl: string;
+    caption: string;
+    mimeType: string;
 }
