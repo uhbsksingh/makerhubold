@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   ActionSheetController,
   Platform,
@@ -10,6 +10,7 @@ import { Transfer, TransferObject, FileUploadOptions } from '@ionic-native/trans
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { ImageDetail } from '../../providers/item/item.model';
 
 declare var cordova: any;
 
@@ -20,9 +21,9 @@ declare var cordova: any;
 export class ImageUploadComponent {
   lastImage: string = null;
   loading: Loading;
+  rows: Array<Array<ImageDetail>>;
 
-
-  imageDetailId: string;
+  @Input() imageDetails: ImageDetail[];
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
@@ -37,6 +38,35 @@ export class ImageUploadComponent {
   ) {
 
   }
+
+  ngOnChanges() {
+    console.log("ngOnChanges");
+    this.loadImages();
+  }
+
+  public loadImages() {
+    this.rows = Array(Math.ceil(this.imageDetails.length / 2));
+
+    let rowNum = 0;
+
+    for (let i = 0; i < this.imageDetails.length; i += 2) {
+
+      this.rows[rowNum] = Array();
+
+      if (this.imageDetails[i]) {
+        this.rows[rowNum][0] = this.imageDetails[i];
+      }
+
+      if (this.imageDetails[i + 1]) {
+        this.rows[rowNum][1] = this.imageDetails[i + 1];
+      }
+
+      rowNum++;
+    }
+
+    console.log("this.grid", this.rows);
+  }
+
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -86,7 +116,9 @@ export class ImageUploadComponent {
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
+      this.uploadImage();
     }, (err) => {
+      console.log("error takepicture", err);
       this.presentToast('Error while selecting image.');
     });
   }
@@ -104,6 +136,7 @@ export class ImageUploadComponent {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
     }, error => {
+      console.log("error copyFileToLocalDir", error);
       this.presentToast('Error while storing file.');
     });
   }
@@ -128,7 +161,7 @@ export class ImageUploadComponent {
 
   public uploadImage() {
     // Destination URL
-    var url = "http://192.168.0.112:7968/api/image";
+    var url = "http://192.168.0.111:7968/api/image";
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
@@ -151,12 +184,12 @@ export class ImageUploadComponent {
 
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
-      console.log("data", data);
-      console.log("data", data.response);
-      this.imageDetailId = data.response;
-      console.log("data this.imageDetailId", this.imageDetailId);
+      console.log("before pushed");
+      this.imageDetails.push(JSON.parse(data.response));
+      console.log("pushed");
       this.loading.dismissAll();
       this.presentToast('Image succesfully uploaded.');
+      this.loadImages();
     }, err => {
       console.log("err", err);
       this.loading.dismissAll()

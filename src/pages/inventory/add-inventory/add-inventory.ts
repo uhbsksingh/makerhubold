@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -8,6 +8,7 @@ import { Item, ImageDetail } from '../../../providers/item/item.model';
 import { ItemService } from '../../../providers/item/item.service';
 import { EmitterService } from '../../../core/emitter.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ImageUploadComponent } from '../../../components/image-upload/image-upload';
 
 
 @IonicPage()
@@ -17,8 +18,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AddInventoryPage {
 
+  @ViewChild(ImageUploadComponent)
+  private imageUploadComponent: ImageUploadComponent;
+
   itemForm: FormGroup;
-  imageDetailId: string;
+  newItem: Item = new Item();
 
   constructor(
     public navCtrl: NavController,
@@ -27,7 +31,6 @@ export class AddInventoryPage {
     private formBuilder: FormBuilder,
     private itemService: ItemService
   ) {
-
     this.itemForm = this.formBuilder.group({
       itemName: ["", Validators.required],
       height: [],
@@ -37,29 +40,22 @@ export class AddInventoryPage {
     });
   }
 
+  ngAfterViewInit() {
+    this.imageUploadComponent.imageDetails = new Array<ImageDetail>();
+  }
+
   public addItem() {
-    var newItem: Item = this.itemForm.value;
-    newItem.itemImages = new Array<ImageDetail>();
+    this.newItem = this.itemForm.value;
+    this.newItem.itemImages = this.imageUploadComponent.imageDetails;
 
-    var itemImage: ImageDetail = new ImageDetail();
+    console.log("add-inventory", this.newItem);
 
-    console.log("this.imageDetailId", this.imageDetailId);
-    console.log("parseInt(this.imageDetailId)", parseInt(this.imageDetailId));
-
-    itemImage.imageId = parseInt(this.imageDetailId);
-    itemImage.caption = newItem.itemName;
-
-    newItem.itemImages.push(itemImage);
-
-    console.log("newItem", newItem);
-
-    this.itemService.add(newItem).subscribe(
+    this.itemService.add(this.newItem).subscribe(
       result => {
-        EmitterService.get("ITEM_ADD").emit(newItem);
+        EmitterService.get("ITEM_ADD").emit(this.newItem);
         this.navCtrl.pop();
       },
       err => {
-        // Log errors if any
         console.log(err);
       });
   }

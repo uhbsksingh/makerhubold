@@ -11,11 +11,11 @@ import { CollectionServiceModule } from '../providers/collection/collection-serv
 	],
 	imports: [
 		IonicModule,
+		CollectionServiceModule
 	],
 	exports: [
 		CurrentCollectionComponent,
-		ImageUploadComponent,
-		CollectionServiceModule
+		ImageUploadComponent
 	]
 })
 export class ComponentsModule { }
