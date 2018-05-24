@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { InventoryPage } from './inventory';
 import { ComponentsModule } from '../../components/components.module';
 import { ItemService } from '../../providers/item/item.service';
+import { ItemServiceModule } from '../../providers/item/item-service.module';
 
 @NgModule({
   declarations: [
@@ -10,10 +11,8 @@ import { ItemService } from '../../providers/item/item.service';
   ],
   imports: [
     IonicPageModule.forChild(InventoryPage),
-    ComponentsModule
-  ],
-  providers: [
-    ItemService
+    ComponentsModule,
+    ItemServiceModule
   ]
 })
 export class InventoryPageModule { }

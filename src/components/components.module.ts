@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CurrentCollectionComponent } from './current-collection/current-collection';
-import { CollectionService } from '../providers/collection/collection.service';
 import { IonicModule } from 'ionic-angular';
+import { ImageUploadComponent } from './image-upload/image-upload';
+import { CollectionServiceModule } from '../providers/collection/collection-service.module';
+
 @NgModule({
 	declarations: [
-		CurrentCollectionComponent
+		CurrentCollectionComponent,
+		ImageUploadComponent
 	],
 	imports: [
-		IonicModule
+		IonicModule,
 	],
 	exports: [
-		CurrentCollectionComponent
-	],
-	providers: [
-		CollectionService
+		CurrentCollectionComponent,
+		ImageUploadComponent,
+		CollectionServiceModule
 	]
 })
 export class ComponentsModule { }

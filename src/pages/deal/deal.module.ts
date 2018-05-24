@@ -2,20 +2,18 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { DealPage } from './deal';
-import { DealService } from '../../providers/deal/deal.service';
+import { DealServiceModule } from '../../providers/deal/deal-service.module';
 
 @NgModule({
     declarations: [
         DealPage
     ],
     imports: [
-        IonicPageModule.forChild(DealPage)
+        IonicPageModule.forChild(DealPage),
+        DealServiceModule
     ],
     exports: [
         DealPage
-    ],
-    providers: [
-        DealService
     ]
 })
 export class DealPageModule { }

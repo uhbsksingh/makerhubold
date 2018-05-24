@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { ContactPage } from './contact';
-import { ContactService } from '../../providers/contact/contact.service';
 import { ComponentsModule } from '../../components/components.module';
+import { ContactServiceModule } from '../../providers/contact/contact-service.module';
 
 @NgModule({
     declarations: [
@@ -11,13 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     ],
     imports: [
         IonicPageModule.forChild(ContactPage),
-        ComponentsModule
+        ComponentsModule,
+        ContactServiceModule
     ],
     exports: [
         ContactPage
-    ],
-    providers: [
-        ContactService
     ]
 })
 export class ContactPageModule { }
