@@ -38,10 +38,6 @@ export class InventoryPage {
     this.currentCollectionComponent.loadCollection();
   }
 
-  ionViewLoaded() {
-
-  }
-
   openAddInventoryPage() {
     this.navCtrl.push("AddInventoryPage");
   }
@@ -51,25 +47,6 @@ export class InventoryPage {
       result => {
         if (result)
           this.items = result;
-
-        this.rows = Array(Math.ceil(this.items.length / 2));
-
-        let rowNum = 0; //counter to iterate over the rows in the grid
-
-        for (let i = 0; i < this.items.length; i += 2) {
-
-          this.rows[rowNum] = Array(); //declare two elements per row
-
-          if (this.items[i]) {
-            this.rows[rowNum][0] = this.items[i]
-          }
-
-          if (this.items[i + 1]) { //repeat for the second image
-            this.rows[rowNum][1] = this.items[i + 1]
-          }
-
-          rowNum++; //go on to the next row
-        }
       },
       err => {
 

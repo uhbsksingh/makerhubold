@@ -3,11 +3,15 @@ import { CurrentCollectionComponent } from './current-collection/current-collect
 import { IonicModule } from 'ionic-angular';
 import { ImageUploadComponent } from './image-upload/image-upload';
 import { CollectionServiceModule } from '../providers/collection/collection-service.module';
+import { ItemDetailComponent } from './item-detail/item-detail';
+import { ItemListComponent } from './item-list/item-list';
 
 @NgModule({
 	declarations: [
 		CurrentCollectionComponent,
-		ImageUploadComponent
+		ImageUploadComponent,
+		ItemDetailComponent,
+    ItemListComponent
 	],
 	imports: [
 		IonicModule,
@@ -15,7 +19,9 @@ import { CollectionServiceModule } from '../providers/collection/collection-serv
 	],
 	exports: [
 		CurrentCollectionComponent,
-		ImageUploadComponent
+		ImageUploadComponent,
+		ItemDetailComponent,
+    ItemListComponent
 	]
 })
 export class ComponentsModule { }

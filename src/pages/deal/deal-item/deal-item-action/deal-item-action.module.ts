@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DealItemPage } from './deal-item';
-import { DealPageModule } from '../deal.module';
+import { DealPageModule } from '../../deal.module';
+import { DealItemActionPage } from './deal-item-action';
 
 @NgModule({
   declarations: [
-    DealItemPage,
+    DealItemActionPage,
   ],
   imports: [
-    IonicPageModule.forChild(DealItemPage),
+    IonicPageModule.forChild(DealItemActionPage),
     DealPageModule
   ],
 })

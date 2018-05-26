@@ -2,11 +2,12 @@ import { Injectable } from "@angular/core";
 import { BaseModel } from "./base.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import { CONFIG } from "../core/config";
 
 @Injectable()
 export class BaseService<T extends BaseModel> {
 
-    url: string = "http://192.168.0.111:7968/api";
+    url: string = CONFIG.apiUrl;
     httpOptions = {
         headers: new HttpHeaders({
             "Content-Type": "application/json"

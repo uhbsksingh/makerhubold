@@ -11,6 +11,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { ImageDetail } from '../../providers/item/item.model';
+import { CONFIG } from '../../core/config';
 
 declare var cordova: any;
 
@@ -23,7 +24,14 @@ export class ImageUploadComponent {
   loading: Loading;
   rows: Array<Array<ImageDetail>>;
 
-  @Input() imageDetails: ImageDetail[];
+  private _imageDetails: ImageDetail[];
+  @Input()
+  set imageDetails(data: ImageDetail[]) {
+    this._imageDetails = data;
+    this.loadImages();
+  }
+
+  get imageDetails(): ImageDetail[] { return this._imageDetails; }
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
@@ -40,7 +48,6 @@ export class ImageUploadComponent {
   }
 
   ngOnChanges() {
-    console.log("ngOnChanges");
     this.loadImages();
   }
 
@@ -161,7 +168,7 @@ export class ImageUploadComponent {
 
   public uploadImage() {
     // Destination URL
-    var url = "http://192.168.0.111:7968/api/image";
+    var url = [CONFIG.apiUrl, "image"].join("/");
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);

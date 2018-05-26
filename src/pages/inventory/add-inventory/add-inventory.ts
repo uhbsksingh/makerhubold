@@ -10,7 +10,6 @@ import { EmitterService } from '../../../core/emitter.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload';
 
-
 @IonicPage()
 @Component({
   selector: 'page-add-inventory',

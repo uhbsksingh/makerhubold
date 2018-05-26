@@ -3,6 +3,8 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { DealPage } from './deal';
 import { DealServiceModule } from '../../providers/deal/deal-service.module';
+import { ComponentsModule } from '../../components/components.module';
+import { ItemServiceModule } from '../../providers/item/item-service.module';
 
 @NgModule({
     declarations: [
@@ -10,10 +12,13 @@ import { DealServiceModule } from '../../providers/deal/deal-service.module';
     ],
     imports: [
         IonicPageModule.forChild(DealPage),
-        DealServiceModule
+        DealServiceModule,
+        ItemServiceModule,
+        ComponentsModule
     ],
     exports: [
-        DealPage
+        DealPage,
+        ComponentsModule
     ]
 })
 export class DealPageModule { }
