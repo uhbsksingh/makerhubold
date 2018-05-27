@@ -1,4 +1,5 @@
 import { BaseModel } from "../base.model";
+import { Collection } from "../collection/collection.model";
 
 export class Item extends BaseModel {
     itemDetailId: number;
@@ -7,7 +8,9 @@ export class Item extends BaseModel {
     weight: string;
     itemQuantity: number;
     tags: string;
+
     itemImages: ImageDetail[];
+    currrentReferenceCollectionDetail: Collection;
 }
 
 export class ImageDetail {

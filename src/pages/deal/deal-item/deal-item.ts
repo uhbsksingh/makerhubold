@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Item } from '../../../providers/item/item.model';
 import { ItemService } from '../../../providers/item/item.service';
+import { Deal } from '../../../providers/deal/deal.model';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import { ItemService } from '../../../providers/item/item.service';
 export class DealItemPage {
 
   items: Item[] = new Array<Item>();
+  deal: Deal;
 
   constructor(
     public navCtrl: NavController,
@@ -20,6 +22,7 @@ export class DealItemPage {
     private itemService: ItemService
   ) {
     this.loadItems();
+    this.deal = navParams.data;
   }
 
   dismiss() {
@@ -38,7 +41,10 @@ export class DealItemPage {
   }
 
   openDealItemActionPage(data: Item) {
-    this.navCtrl.push("DealItemActionPage", data);
+    this.navCtrl.push("DealItemActionPage", {
+      item: data,
+      deal: this.deal
+    });
   }
 
 }

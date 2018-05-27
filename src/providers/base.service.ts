@@ -16,7 +16,7 @@ export class BaseService<T extends BaseModel> {
 
     constructor(
         public httpClient: HttpClient,
-        private baseEndpoints: string[]) {
+        public baseEndpoints: string[]) {
 
     }
 

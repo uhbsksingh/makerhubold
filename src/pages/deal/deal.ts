@@ -3,7 +3,6 @@ import { IonicPage, PopoverController, NavController } from 'ionic-angular';
 import { Deal } from '../../providers/deal/deal.model';
 import { DealService } from '../../providers/deal/deal.service';
 import { EmitterService } from '../../core/emitter.service';
-import { Collection } from '../../providers/collection/collection.model';
 
 @IonicPage()
 @Component({
@@ -27,14 +26,14 @@ export class DealPage {
       .get("DEAL_ADD")
       .subscribe(
         (deals: Deal[]) => {
-          this.loadDeals(); 
+          this.loadDeals();
         });
   }
 
   loadDeals() {
     this.dealService.getAll().subscribe(
       result => {
-        console.log("result", result);
+        console.log("loadDeals", result);
         this.deals = result
       },
       err => {
@@ -44,12 +43,8 @@ export class DealPage {
 
   openDealDetailPage(deal: Deal) {
 
-    var referencedCollectionDetail: Collection = new Collection();
-    referencedCollectionDetail.collectionDetailId = deal.referencedCollectionDetailId;
-    referencedCollectionDetail.collectionDetailName = deal.aliasName;
-
-    console.log("referencedCollectionDetail", referencedCollectionDetail);
-    this.navCtrl.push("DealDetailPage", referencedCollectionDetail);
+    console.log("openDealDetailPage", deal);
+    this.navCtrl.push("DealDetailPage", deal);
   }
 
   public presentPopover(ev) {

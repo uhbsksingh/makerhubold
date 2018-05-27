@@ -5,6 +5,7 @@ import { Contact } from '../../../providers/contact/contact.model';
 import { DealService } from '../../../providers/deal/deal.service';
 import { Deal } from '../../../providers/deal/deal.model';
 import { EmitterService } from '../../../core/emitter.service';
+import { Collection } from '../../../providers/collection/collection.model';
 
 @IonicPage()
 @Component({
@@ -50,10 +51,17 @@ export class AddDealPage {
 
   addDeal(contact: Contact) {
 
+    console.log("Add Deal Contact", contact);
     var newDeal = new Deal();
     newDeal.createdByCollectionDetailId = contact.collectionDetailId;
-    newDeal.referencedCollectionDetailId = contact.referenceCollectionDetailId;
+
+    var newCollectionDetail = new Collection();
+    newCollectionDetail.collectionDetailId = contact.referenceCollectionDetailId;
+    newCollectionDetail.collectionDetailName = contact.referenceCollectionDetailName;
+
+    newDeal.referencedCollectionDetail = newCollectionDetail;
     newDeal.aliasName = contact.referenceCollectionDetailName;
+    console.log("Add Deal newDeal", newDeal);
 
     this.dealService.add(newDeal).subscribe(
       result => {
