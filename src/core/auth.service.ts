@@ -47,7 +47,7 @@ export class AuthService {
     this.Client.authorize(options, (err, authResult) => {
       if (err) {
         throw err;
-      }
+      }            
       // Set access token
       this.storage.set('access_token', authResult.accessToken);
       this.accessToken = authResult.accessToken;
@@ -65,12 +65,14 @@ export class AuthService {
         if (err) {
           throw err;
         }
-        this.storage.set('profile', profile).then(val =>
-          this.zone.run(() => this.user = profile)
+        this.storage.set('profile', profile).then(val => {
+          this.zone.run(() => this.user = profile);
+
+          EmitterService.get("USER_LOGGEDIN").emit(this.storage.get('profile'));
+        }
         );
       });
 
-      EmitterService.get("USER_LOGGEDIN").emit(this.storage.get('profile'));
     });
   }
 
