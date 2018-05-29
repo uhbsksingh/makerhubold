@@ -26,6 +26,7 @@
     "@ionic-native/core": "^4.7.0",
     "@ionic-native/file": "^4.7.0",
     "@ionic-native/file-path": "^4.7.0",
+    "@ionic-native/file-transfer": "^4.7.0",
     "@ionic-native/splash-screen": "4.7.0",
     "@ionic-native/status-bar": "4.7.0",
     "@ionic-native/transfer": "^3.14.0",
@@ -58,12 +59,6 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-safariviewcontroller": {},
-      "cordova-plugin-customurlscheme": {
-        "URL_SCHEME": "com.absk.makerhub",
-        "ANDROID_SCHEME": "com.absk.makerhub",
-        "ANDROID_HOST": "absk.auth0.com",
-        "ANDROID_PATHPREFIX": "/cordova/com.absk.makerhub/callback"
-      },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
@@ -72,7 +67,13 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-filepath": {}
+      "cordova-plugin-filepath": {},
+      "cordova-plugin-customurlscheme": {
+        "URL_SCHEME": "com.absk.makerhub",
+        "ANDROID_SCHEME": "com.absk.makerhub",
+        "ANDROID_HOST": "absk.auth0.com",
+        "ANDROID_PATHPREFIX": "/cordova/com.absk.makerhub/callback"
+      }
     },
     "platforms": [
       "android"

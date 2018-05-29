@@ -4,9 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AuthService } from './auth.service';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { LoaderService } from './loader.service';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { LocalStorageService } from './local-storage.service';
 import { EmitterService } from './emitter.service';
 
 @NgModule({
@@ -28,8 +26,6 @@ export class CoreModule {
             providers: [
                 AuthService,
                 EmitterService,
-                LoaderService,
-                LocalStorageService,
                 {
                     provide: HTTP_INTERCEPTORS,
                     useClass: TokenInterceptorService,

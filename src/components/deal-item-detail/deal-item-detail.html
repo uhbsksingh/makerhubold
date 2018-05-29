@@ -1,8 +1,12 @@
 <ion-card>
 
   <ion-item>
-    <h2>{{item.itemName}}</h2>
-    <h3>Count: {{item.itemQuantity}}</h3>
+    <ion-avatar item-start>
+      <img src="{{dealItem.sender.profileImageUrl}}">
+    </ion-avatar>
+    <h2>{{fullName}}</h2>
+    <p>Name: {{dealItem.itemDetail.itemName}}</p>
+    <p>Quantity: {{dealItem.transferQuantity}}</p>
   </ion-item>
 
   <ion-row *ngFor="let row of rows">

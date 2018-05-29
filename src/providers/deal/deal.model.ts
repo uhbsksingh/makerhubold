@@ -2,6 +2,7 @@ import { DateTime } from "ionic-angular";
 import { BaseModel } from "../base.model";
 import { Collection } from "../collection/collection.model";
 import { Item } from "../item/item.model";
+import { AppUser } from "../app-user/app-user.model";
 
 export class Deal extends BaseModel {
     dealDetailId: number;
@@ -18,12 +19,13 @@ export class Deal extends BaseModel {
 export class DealItem extends BaseModel {
     dealItemDetailId: number;
     dealDetailId: number;
-    senderId: string;
     transferQuantity: number;
     transferApproved: boolean;
     transferDateTime: string;
     newReferenceCollectionDetailId: string;
     currentReferenceCollectionDetailId: string;
 
+    senderCollectionDetail: Collection;
+    sender: AppUser;
     itemDetail: Item;
 }

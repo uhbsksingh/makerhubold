@@ -5,12 +5,11 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { File } from '@ionic-native/file';
-import { Transfer } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { CoreModule } from '../core/core.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,8 @@ import { CoreModule } from '../core/core.module';
   imports: [
     BrowserModule,
     CoreModule.forRoot(),
-    IonicModule.forRoot(MyApp, { tabsHideOnSubPages: true })
+    IonicModule.forRoot(MyApp, { tabsHideOnSubPages: true }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,10 +28,8 @@ import { CoreModule } from '../core/core.module';
   providers: [
     StatusBar,
     SplashScreen,
-    File,
-    Transfer,
     Camera,
-    FilePath,
+    FileTransfer,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

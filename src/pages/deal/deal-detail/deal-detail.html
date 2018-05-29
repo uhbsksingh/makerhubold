@@ -18,7 +18,7 @@
   <ion-list>
 
     <ion-item no-lines *ngFor="let dealItem of deal.dealItemDetails">
-      <item-detail [item]="dealItem.itemDetail" (click)="itemClicked(dealItem.itemDetail)"></item-detail>
+      <deal-item-detail [dealItem]="dealItem" (click)="itemClicked(dealItem.itemDetail)"></deal-item-detail>
     </ion-item>
 
     <ion-item no-lines>

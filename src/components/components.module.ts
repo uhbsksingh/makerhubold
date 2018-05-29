@@ -5,13 +5,15 @@ import { ImageUploadComponent } from './image-upload/image-upload';
 import { CollectionServiceModule } from '../providers/collection/collection-service.module';
 import { ItemDetailComponent } from './item-detail/item-detail';
 import { ItemListComponent } from './item-list/item-list';
+import { DealItemDetailComponent } from './deal-item-detail/deal-item-detail';
 
 @NgModule({
 	declarations: [
 		CurrentCollectionComponent,
 		ImageUploadComponent,
 		ItemDetailComponent,
-    ItemListComponent
+		ItemListComponent,
+		DealItemDetailComponent
 	],
 	imports: [
 		IonicModule,
@@ -21,7 +23,8 @@ import { ItemListComponent } from './item-list/item-list';
 		CurrentCollectionComponent,
 		ImageUploadComponent,
 		ItemDetailComponent,
-    ItemListComponent
+		ItemListComponent,
+		DealItemDetailComponent
 	]
 })
 export class ComponentsModule { }

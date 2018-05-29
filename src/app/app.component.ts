@@ -10,7 +10,7 @@ import Auth0Cordova from '@auth0/cordova';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = "TabsPage";
+  rootPage: any = "LoginPage";
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
