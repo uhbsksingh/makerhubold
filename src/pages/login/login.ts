@@ -14,11 +14,16 @@ export class LoginPage {
     public navCtrl: NavController,
     public auth: AuthService
   ) {
-    EmitterService
-      .get("USER_LOGGEDIN")
-      .subscribe(() => {
-        this.navCtrl.setRoot('TabsPage');
-      });
+    // EmitterService
+    //   .get("USER_LOGGEDIN")
+    //   .subscribe((result) => {
+    //     if (result) {
+    //       this.navCtrl.setRoot('TabsPage');
+    //     }
+    //     else {
+    //       this.navCtrl.setRoot('LoginPage')
+    //     }
+    //   });
   }
 
   ionViewWillEnter() {

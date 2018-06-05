@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
+import { AuthService } from '../../core/auth.service';
 
 @IonicPage()
 @Component({
@@ -8,7 +9,10 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public auth: AuthService
+  ) {
 
   }
 

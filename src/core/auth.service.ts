@@ -38,6 +38,35 @@ export class AuthService {
     });
   }
 
+  loginForTest() {
+    // Set access token
+    this.storage.set('access_token', 'wPVN4wXEQbKaRNqTiQzZZOOcHADB_JwV');
+    this.accessToken = 'wPVN4wXEQbKaRNqTiQzZZOOcHADB_JwV';
+    this.storage.set('id_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMDVUMTg6NDk6MjMuMDc3WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI4MjI0NTY0LCJleHAiOjE1MjgyNjA1NjR9.FfoId7fCx9b9IurwLzuoY6EZp6meBtW4LJPxrC6aoi373ylyaEn8tW1AN2g7QNhkQt2fZvPI_1WAd1uxTCfseRvec2rwznm9G1GjygSpsT4BCAk607rdQgiZ9mJEfbmjDwytJDtRaAstE1BCQ2gmbbbtWsX7HyDSTyPs0eagptva0lqVn-NwfxSfVQ8tHjPFIJjTQhICDzV01yMZe1cKouLOQJb7UTUyVvQOkBoDMDJKvQq_7zekgOEvjo-zsxZUbdTFgATugJrplsHV4XDT93yODKqKgGr3fHTJoEIlaD0B0hJprM5yRVP_XLumUFFdi-tfNm9BMpSUQjcrCuiAtQ');
+    this.idToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMDVUMTg6NDk6MjMuMDc3WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI4MjI0NTY0LCJleHAiOjE1MjgyNjA1NjR9.FfoId7fCx9b9IurwLzuoY6EZp6meBtW4LJPxrC6aoi373ylyaEn8tW1AN2g7QNhkQt2fZvPI_1WAd1uxTCfseRvec2rwznm9G1GjygSpsT4BCAk607rdQgiZ9mJEfbmjDwytJDtRaAstE1BCQ2gmbbbtWsX7HyDSTyPs0eagptva0lqVn-NwfxSfVQ8tHjPFIJjTQhICDzV01yMZe1cKouLOQJb7UTUyVvQOkBoDMDJKvQq_7zekgOEvjo-zsxZUbdTFgATugJrplsHV4XDT93yODKqKgGr3fHTJoEIlaD0B0hJprM5yRVP_XLumUFFdi-tfNm9BMpSUQjcrCuiAtQ';
+
+    // Set access token expiration
+    const expiresAt = JSON.stringify((86400 * 1000) + new Date().getTime());
+    this.storage.set('expires_at', expiresAt);
+    this.loggedIn = true;
+    this.storage.set('profile', {
+      "sub": "google-oauth2|113633840458085937697",
+      "given_name": "Abhishek",
+      "family_name": "Singh",
+      "nickname": "singh.maharzn",
+      "name": "Abhishek Singh",
+      "picture": "https://lh6.googleusercontent.com/-uBggK2wAn3s/AAAAAAAAAAI/AAAAAAAAJDI/7I8-7NyBfsQ/photo.jpg",
+      "gender": "male",
+      "locale": "en",
+      "updated_at": "2018-06-05T19:32:04.949Z",
+      "email": "singh.maharzn@gmail.com",
+      "email_verified": true
+    }).then(() => {
+      EmitterService.get("USER_LOGGEDIN").emit(true);
+    });
+
+  }
+
   login() {
     this.loading = true;
     const options = {
@@ -47,7 +76,7 @@ export class AuthService {
     this.Client.authorize(options, (err, authResult) => {
       if (err) {
         throw err;
-      }            
+      }
       // Set access token
       this.storage.set('access_token', authResult.accessToken);
       this.accessToken = authResult.accessToken;
@@ -68,7 +97,7 @@ export class AuthService {
         this.storage.set('profile', profile).then(val => {
           this.zone.run(() => this.user = profile);
 
-          EmitterService.get("USER_LOGGEDIN").emit(this.storage.get('profile'));
+          EmitterService.get("USER_LOGGEDIN").emit(true);
         }
         );
       });
@@ -84,6 +113,8 @@ export class AuthService {
     this.accessToken = null;
     this.user = null;
     this.loggedIn = false;
+
+    EmitterService.get("USER_LOGGEDIN").emit(false);
   }
 
 }

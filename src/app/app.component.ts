@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
+import { EmitterService } from '../core/emitter.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,5 +25,16 @@ export class MyApp {
     (<any>window).handleOpenURL = (url) => {
       Auth0Cordova.onRedirectUri(url);
     };
+
+    EmitterService
+      .get("USER_LOGGEDIN")
+      .subscribe((result) => {
+        if (result) {
+          this.rootPage = "TabsPage";
+        }
+        else {
+          this.rootPage = "LoginPage";
+        }
+      });
   }
 }

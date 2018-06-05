@@ -7,58 +7,53 @@
 <ion-content>
 
   <ion-list>
-
-    <ion-card>
-
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="img/marty-avatar.png">
-        </ion-avatar>
-        <h2>Marty McFly</h2>
-        <p>November 5, 1955</p>
-      </ion-item>
-
-      <img src="img/advance-card-bttf.png">
-
-      <ion-card-content>
-        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-          Whoa. This is heavy.</p>
-      </ion-card-content>
-
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div>12 Likes</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="text"></ion-icon>
-            <div>4 Comments</div>
-          </button>
-        </ion-col>
-        <ion-col center text-center>
-          <ion-note>
-            11h ago
-          </ion-note>
-        </ion-col>
-      </ion-row>
-
-    </ion-card>
-
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
+      </ion-thumbnail>
+      <h2>My Neighbor Totoro</h2>
+      <p>Hayao Miyazaki • 1988</p>
+      <button ion-button clear item-end>View</button>
+    </ion-item>
   </ion-list>
 
-  <ion-list no-border>
-
+  <ion-list>
+    <ion-list-header>
+      Collections
+    </ion-list-header>
     <ion-item>
-      <ion-icon name='planet' item-start></ion-icon>
-      Inventory
-      <ion-note item-end>
-        To the moon
-      </ion-note>
+      <ion-avatar item-start>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
+      </ion-avatar>
+      <h2>Test Collection (ACTIVE)</h2>
+      <p>Inventory Count:500</p>
+      <p>User Count: 5</p>
     </ion-item>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
+      </ion-avatar>
+      <h2>Test Collection</h2>
+      <p>Inventory Count:500</p>
+      <p>User Count: 5</p>
+      <button ion-button clear item-end>Select</button>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
+      </ion-avatar>
+      <h2>Test Collection</h2>
+      <p>Inventory Count:500</p>
+      <p>User Count: 5</p>
+      <button ion-button clear item-end>Select</button>
+    </ion-item>
+  </ion-list>
 
+  <ion-list>
+    <ion-item (click)="auth.logout()">
+      <ion-icon name="log-out" item-start></ion-icon>
+      Log Out
+    </ion-item>
   </ion-list>
 
 </ion-content>
