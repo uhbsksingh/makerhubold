@@ -2,7 +2,7 @@ import { DateTime } from "ionic-angular";
 import { BaseModel } from "../base.model";
 import { Collection } from "../collection/collection.model";
 import { Item } from "../item/item.model";
-import { AppUser } from "../app-user/app-user.model";
+import { AppUser } from "../app-user.model";
 
 export class Deal extends BaseModel {
     dealDetailId: number;

@@ -21,31 +21,13 @@
     <ion-list-header>
       Collections
     </ion-list-header>
-    <ion-item>
+    <ion-item *ngFor="let collection of Collections">
       <ion-avatar item-start>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
+        <img src="{{collection.profileImageUrl}}">
       </ion-avatar>
-      <h2>Test Collection (ACTIVE)</h2>
-      <p>Inventory Count:500</p>
-      <p>User Count: 5</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
-      </ion-avatar>
-      <h2>Test Collection</h2>
-      <p>Inventory Count:500</p>
-      <p>User Count: 5</p>
-      <button ion-button clear item-end>Select</button>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTDOzadSH7HZlU96Ogy2XzMynwk4o4Epcvw12FmpBYRT0B_aLrA">
-      </ion-avatar>
-      <h2>Test Collection</h2>
-      <p>Inventory Count:500</p>
-      <p>User Count: 5</p>
-      <button ion-button clear item-end>Select</button>
+      <h2>{{collection.collectionDetailName}}</h2>
+      <p>Inventory Count: {{collection.collectionInventoryCount}}</p>
+      <p>User Count: {{collection.collectionUserCount}}</p>
     </ion-item>
   </ion-list>
 

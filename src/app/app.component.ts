@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
-import { EmitterService } from '../core/emitter.service';
+import { Events } from 'ionic-angular';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +14,13 @@ import { EmitterService } from '../core/emitter.service';
 export class MyApp {
   rootPage: any = "LoginPage";
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+
+    public events: Events
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -26,15 +33,15 @@ export class MyApp {
       Auth0Cordova.onRedirectUri(url);
     };
 
-    EmitterService
-      .get("USER_LOGGEDIN")
-      .subscribe((result) => {
-        if (result) {
-          this.rootPage = "TabsPage";
-        }
-        else {
-          this.rootPage = "LoginPage";
-        }
-      });
+    events.subscribe("USER_REGISTERED", (registered) => {
+      if (registered) {
+        this.rootPage = "TabsPage";
+      }
+      else {
+        console.log("Not registered appComponent");
+
+        this.rootPage = "RegisterPage";
+      }
+    });
   }
 }

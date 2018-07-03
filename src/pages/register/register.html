@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="appUser" (ngSubmit)="register()">
+    <ion-item>
+      <ion-label>Enter Mobile Number</ion-label>
+      <ion-input type="text" formControlName="appUserMobile"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!appUser.valid">Register</button>
+  </form>
+</ion-content>

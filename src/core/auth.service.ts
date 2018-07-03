@@ -1,9 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
 
 import Auth0Cordova from '@auth0/cordova';
 import * as auth0 from 'auth0-js';
-import { EmitterService } from './emitter.service';
+import { CONFIG } from './config';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AppUser } from '../providers/app-user.model';
 
 const AUTH_CONFIG = {
   // Needed for Auth0 (capitalization: ID):
@@ -26,8 +29,11 @@ export class AuthService {
   loading = true;
 
   constructor(
+    private storage: Storage,
+    private httpClient: HttpClient,
+
     public zone: NgZone,
-    private storage: Storage
+    public events: Events
   ) {
     this.storage.get('profile').then(user => this.user = user);
     this.storage.get('access_token').then(token => this.accessToken = token);
@@ -40,10 +46,10 @@ export class AuthService {
 
   loginForTest() {
     // Set access token
-    this.storage.set('access_token', 'wPVN4wXEQbKaRNqTiQzZZOOcHADB_JwV');
-    this.accessToken = 'wPVN4wXEQbKaRNqTiQzZZOOcHADB_JwV';
-    this.storage.set('id_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMDVUMTg6NDk6MjMuMDc3WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI4MjI0NTY0LCJleHAiOjE1MjgyNjA1NjR9.FfoId7fCx9b9IurwLzuoY6EZp6meBtW4LJPxrC6aoi373ylyaEn8tW1AN2g7QNhkQt2fZvPI_1WAd1uxTCfseRvec2rwznm9G1GjygSpsT4BCAk607rdQgiZ9mJEfbmjDwytJDtRaAstE1BCQ2gmbbbtWsX7HyDSTyPs0eagptva0lqVn-NwfxSfVQ8tHjPFIJjTQhICDzV01yMZe1cKouLOQJb7UTUyVvQOkBoDMDJKvQq_7zekgOEvjo-zsxZUbdTFgATugJrplsHV4XDT93yODKqKgGr3fHTJoEIlaD0B0hJprM5yRVP_XLumUFFdi-tfNm9BMpSUQjcrCuiAtQ');
-    this.idToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMDVUMTg6NDk6MjMuMDc3WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI4MjI0NTY0LCJleHAiOjE1MjgyNjA1NjR9.FfoId7fCx9b9IurwLzuoY6EZp6meBtW4LJPxrC6aoi373ylyaEn8tW1AN2g7QNhkQt2fZvPI_1WAd1uxTCfseRvec2rwznm9G1GjygSpsT4BCAk607rdQgiZ9mJEfbmjDwytJDtRaAstE1BCQ2gmbbbtWsX7HyDSTyPs0eagptva0lqVn-NwfxSfVQ8tHjPFIJjTQhICDzV01yMZe1cKouLOQJb7UTUyVvQOkBoDMDJKvQq_7zekgOEvjo-zsxZUbdTFgATugJrplsHV4XDT93yODKqKgGr3fHTJoEIlaD0B0hJprM5yRVP_XLumUFFdi-tfNm9BMpSUQjcrCuiAtQ';
+    this.storage.set('access_token', 'hBMIuyMlJ-yV_reP6F0LOzNjmuPP9Ooe');
+    this.accessToken = 'hBMIuyMlJ-yV_reP6F0LOzNjmuPP9Ooe';
+    this.storage.set('id_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMTlUMTY6NDk6MjcuNzg4WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI5NDI2OTY4LCJleHAiOjE1Mjk0NjI5Njh9.gY8tNy_yubER_6hpqW_Fwcs6LSTnpKxWMId8sJzQn0uSGFOIx9cPyVeAhmg6TzbQ_LkJHxOs9umw8iCDxuU_oblSmzUxzENeC7TdNDSMKiifeDsbF7dgyhbVE6DeZn1rGdxE65G5EvzHQMjmeHSbYBHnL-T2hpH959eb_mu_M8AbEHoxLnylfI9dIHj3Begn_cneywUFcqObNLEMQiZVRhZRuf15ctGaoaIaQp89JZlG57Ofn8gqCsvUBRoZcOMYbDLXtyN_V7ooAMUv8iDZT-UO8RvxUGSQqXje3_5K0-Rx_kFIr9bNYPHKEZwV07ABGJjdpyU-RyC86ni5GxxnbQ');
+    this.idToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5EZzNOekpDUVRZMU1qWkJPVVZGTWtWR016ZEVSVVZGT0RVeVJVWkdNak0xTWpnek1VRTFSQSJ9.eyJnaXZlbl9uYW1lIjoiQWJoaXNoZWsiLCJmYW1pbHlfbmFtZSI6IlNpbmdoIiwibmlja25hbWUiOiJzaW5naC5tYWhhcnpuIiwibmFtZSI6IkFiaGlzaGVrIFNpbmdoIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tdUJnZ0syd0FuM3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFKREkvN0k4LTdOeUJmc1EvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwidXBkYXRlZF9hdCI6IjIwMTgtMDYtMTlUMTY6NDk6MjcuNzg4WiIsImVtYWlsIjoic2luZ2gubWFoYXJ6bkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9hYnNrLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMzYzMzg0MDQ1ODA4NTkzNzY5NyIsImF1ZCI6ImNCdFROOGY0S3JCUTdQNDhudlJBZFRJUTI2dGZKVzhNIiwiaWF0IjoxNTI5NDI2OTY4LCJleHAiOjE1Mjk0NjI5Njh9.gY8tNy_yubER_6hpqW_Fwcs6LSTnpKxWMId8sJzQn0uSGFOIx9cPyVeAhmg6TzbQ_LkJHxOs9umw8iCDxuU_oblSmzUxzENeC7TdNDSMKiifeDsbF7dgyhbVE6DeZn1rGdxE65G5EvzHQMjmeHSbYBHnL-T2hpH959eb_mu_M8AbEHoxLnylfI9dIHj3Begn_cneywUFcqObNLEMQiZVRhZRuf15ctGaoaIaQp89JZlG57Ofn8gqCsvUBRoZcOMYbDLXtyN_V7ooAMUv8iDZT-UO8RvxUGSQqXje3_5K0-Rx_kFIr9bNYPHKEZwV07ABGJjdpyU-RyC86ni5GxxnbQ';
 
     // Set access token expiration
     const expiresAt = JSON.stringify((86400 * 1000) + new Date().getTime());
@@ -62,7 +68,7 @@ export class AuthService {
       "email": "singh.maharzn@gmail.com",
       "email_verified": true
     }).then(() => {
-      EmitterService.get("USER_LOGGEDIN").emit(true);
+      // EmitterService.get("USER_REGISTERED").emit(true);
     });
 
   }
@@ -87,7 +93,6 @@ export class AuthService {
       const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
       this.storage.set('expires_at', expiresAt);
       // Set logged in
-      this.loading = false;
       this.loggedIn = true;
       // Fetch user's profile info
       this.Auth0.client.userInfo(this.accessToken, (err, profile) => {
@@ -95,14 +100,25 @@ export class AuthService {
           throw err;
         }
         this.storage.set('profile', profile).then(val => {
-          this.zone.run(() => this.user = profile);
+          this.zone.run(() => {
+            this.user = profile;
 
-          EmitterService.get("USER_LOGGEDIN").emit(true);
-        }
-        );
+            this.getCurrentUser(profile.sub);
+
+          });
+
+        });
       });
 
     });
+  }
+
+  setAppUser(appUser: any) {
+    this.storage.set('appUser', appUser);
+  }
+
+  getAppUser() {
+    this.storage.get('appUser');
   }
 
   logout() {
@@ -114,7 +130,36 @@ export class AuthService {
     this.user = null;
     this.loggedIn = false;
 
-    EmitterService.get("USER_LOGGEDIN").emit(false);
+    this.events.publish("USER_LOGGEDIN", false);
   }
 
+  getCurrentUser(externalId: string) {
+    return this.httpClient.get<any>([
+      CONFIG.apiUrl,
+      "User",
+      externalId
+    ].join("/"))
+      .subscribe(result => {
+        if (result) {
+          this.setAppUser(result);
+          this.events.publish("USER_REGISTERED", true);
+        }
+        else {
+          console.log("Not registered");
+          this.events.publish("USER_REGISTERED", false);
+        }
+      });
+  }
+
+  registerUser(data: AppUser) {
+    return this.httpClient
+      .post<AppUser>([
+        CONFIG.apiUrl,
+        "User",
+      ].join("/"), data, {
+          headers: new HttpHeaders({
+            "Content-Type": "application/json"
+          })
+        });
+  }
 }

@@ -7,5 +7,6 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button block color="primary" (click)="auth.loginForTest()">Log In</button>
+  <button *ngIf="!this.auth.loading" ion-button block color="primary" (click)="this.login()">Log In</button>
+  <div *ngIf="this.auth.loading"><p>Please wait...</p></div>
 </ion-content>

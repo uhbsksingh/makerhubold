@@ -1,5 +1,5 @@
-import { BaseModel } from "../base.model";
-import { Collection } from "../collection/collection.model";
+import { BaseModel } from "./base.model";
+import { ImageDetail } from "./item/item.model";
 
 export class AppUser extends BaseModel {
     appUserDetailId: number;
@@ -9,6 +9,5 @@ export class AppUser extends BaseModel {
     lastName: string;
     appUserMobile: string;
     profileImageUrl: string;
-
-    appUserCollections: Collection[];
+    profileImage: ImageDetail;
 }
