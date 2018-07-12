@@ -7,6 +7,7 @@ import * as auth0 from 'auth0-js';
 import { CONFIG } from './config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppUser } from '../providers/app-user.model';
+import { Registration } from '../providers/registration.model';
 
 const AUTH_CONFIG = {
   // Needed for Auth0 (capitalization: ID):
@@ -151,7 +152,7 @@ export class AuthService {
       });
   }
 
-  registerUser(data: AppUser) {
+  registerUser(data: Registration) {
     return this.httpClient
       .post<AppUser>([
         CONFIG.apiUrl,

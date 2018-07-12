@@ -3,6 +3,8 @@ import { IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
 import { AppUser } from '../../providers/app-user.model';
+import { Registration } from '../../providers/registration.model';
+import { Collection } from '../../providers/collection/collection.model';
 
 @IonicPage()
 @Component({
@@ -11,27 +13,32 @@ import { AppUser } from '../../providers/app-user.model';
 })
 export class RegisterPage {
 
-  private appUser: FormGroup;
+  private registration: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     public auth: AuthService
   ) {
-    this.appUser = this.formBuilder.group({
-      appUserMobile: ['', Validators.required]
+    this.registration = this.formBuilder.group({
+      appUserMobile: ['', Validators.required],
+      collectionName: ['', Validators.required]
     });
   }
 
   register() {
     var newAppUser = new AppUser();
-
-    console.log("this.auth.user", this.auth.user);
-
     newAppUser.externalId = this.auth.user.sub;
-    newAppUser.appUserMobile = this.appUser.value.appUserMobile;
+    newAppUser.appUserMobile = this.registration.value.appUserMobile;
     //     newAppUser.profileImage = result.profileImage;
 
-    this.auth.registerUser(newAppUser).subscribe(
+    var newCollection = new Collection();
+    newCollection.collectionDetailName = this.registration.value.collectionName;
+
+    var newRegistration = new Registration();
+    newRegistration.appUserDetail = newAppUser;
+    newRegistration.collectionDetail = newCollection;
+
+    this.auth.registerUser(newRegistration).subscribe(
       result => {
         this.auth.getCurrentUser(this.auth.user.sub);
       },

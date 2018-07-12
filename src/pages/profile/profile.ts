@@ -19,12 +19,13 @@ export class ProfilePage {
 
     private collectionService: CollectionService
   ) {
-
+    this.loadCollection();
   }
 
   loadCollection() {
     this.collectionService.getAll().subscribe(
       result => {
+        console.log("Collection list", result);
         this.collections = result;
       },
       err => {

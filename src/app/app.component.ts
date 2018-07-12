@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
 import { Events } from 'ionic-angular';
-import { AuthService } from '../core/auth.service';
 
 @Component({
   templateUrl: 'app.html'
